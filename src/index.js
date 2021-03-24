@@ -13,9 +13,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Helmet>
-        <title>Ivo Digital Starter Project</title>
-        <meta property="og:title" content="Ivo Digital Starter Project" />
-        <meta property="og:site_name" content="Ivo Digital Starter Project" />
+        <title>Catsat</title>
+        <meta property="og:title" content="Catsat" />
+        <meta property="og:site_name" content="Catsat" />
       </Helmet>
       <ScrollToTop>
         <App />

@@ -1,0 +1,27 @@
+.defaultFont {
+    font-family: "Avenir Next", sans-serif;
+}
+
+/*Splash Screen Style*/
+
+.splashContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: #F8EFE6;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.splashTitle {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    color: #A88E74;
+}
+
+/*Splash Screen Style*/
+
+
+
+
