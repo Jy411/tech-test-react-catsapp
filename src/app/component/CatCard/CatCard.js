@@ -8,12 +8,13 @@ import {Link} from "react-router-dom";
 
 const CatCard = (props) => {
   const cat = props.cat;
+  const catId = cat.id;
   const dispatch = useDispatch();
   const likedCatArr = useSelector(state => state.feed.likedCats);
 
   return (
       <div className="catCard" style={{backgroundColor: props.cardColor}}>
-        <Link to="/detail" onClick={() => dispatch(storeDetail(cat))}>
+        <Link to={`/detail/${catId}`}>
           <div className="catPhotoContainer">
             <img
                 className="catPhoto"

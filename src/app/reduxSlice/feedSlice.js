@@ -33,11 +33,8 @@ export const feedSlice = createSlice({
     },
     storeCat: (state, action) => {
       state.catArr.push(action.payload);
-      console.log(current(state.catArr));
     },
     updateSplash: (state, action) => {
-      console.log('action.payload');
-      console.log(action.payload);
       state.dataLoaded = action.payload;
     }
   }

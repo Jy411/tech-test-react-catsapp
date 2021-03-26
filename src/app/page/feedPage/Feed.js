@@ -55,7 +55,7 @@ const Feed = () => {
                       onClick={() => pageSelect(2)}>Liked</button>
             </div>
           </Grid>
-          {activePage === 1 && catArr.map((item) => {return (<CatGrid catData={item}/>)})}
+          {activePage === 1 && catArr.map((item) => {return (<CatGrid key={item.id} catData={item}/>)})}
           {activePage === 2 && <LikedCats />}
         </Grid.Container>
       )

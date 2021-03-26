@@ -1,45 +1,64 @@
-import React from "react";
-import {useSelector} from "react-redux";
+import React, {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 
 
 import "./detailStyle.css";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import {addLikeCat} from "../../reduxSlice/feedSlice";
 
 const Detail = () => {
-  const catName = useSelector(state => state.feed.catName);
-  const catAge = useSelector(state => state.feed.catAge);
-  const catBio = useSelector(state => state.feed.catBio);
-  const imgUrl = useSelector(state => state.feed.catImgUrl);
-  const bgColor = useSelector(state => state.feed.bgColor);
-  const ownerName = useSelector(state => state.feed.ownerName);
-  const ownerPhone = useSelector(state => state.feed.ownerPhone);
-  const ownerEmail = useSelector(state => state.feed.ownerEmail);
-  const ownerAddress = useSelector(state => state.feed.ownerAddress);
+  const dispatch = useDispatch();
+  const likedCatArr = useSelector(state => state.feed.likedCats);
+  const catArr = useSelector(state => state.feed.catArr)
+  const [cat, setCat] = useState({
+    "id": 0,
+    "name": "Jeremiah",
+    "age": 21,
+    "description": "This grumpy cat started following me back home while I was taking a walk. It won't leave me now. Please help.",
+    "image_url": "https://cataas.com/cat/6010b5d147d128001b7bbb8c",
+    "background_color": "#f37171",
+    "owner": {
+      "name": "Anonymous",
+      "phone": "07711223344",
+      "email": "deborah@email.com",
+      "address": "Keltan House, 115 Mare St, London, E8 4RT"
+    }
+  });
+  let { catId } = useParams();
+
+  useEffect(() => {
+    catArr.map((cat) => {
+      if (cat.id === parseInt(catId)) {
+        console.log(cat);
+        setCat(cat);
+      }
+    })
+  }, [])
 
   return (
-      <div className="container" style={{backgroundColor: bgColor}}>
+      <div className="container" style={{backgroundColor: cat.background_color}}>
         <div className="imageContainer">
           <img
-              src={imgUrl}
-              // src={"https://cdn.ivodigital.com/catsapp/test-cat-1.jpg"}
+              src={cat.image_url}
               className="catImage"
+              alt="meow meow missing"
           />
           <Link to={{pathname:"/", state: {dataLoaded: true}}}>
             <svg className="closeIcon" width="36" height="36" viewBox="0 0 36 36" fill="none"
                  xmlns="http://www.w3.org/2000/svg">
               <circle cx="18" cy="18" r="18" fill="white"/>
-              <path d="M23 13L13 23" stroke="#143154" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M13 13L23 23" stroke="#143154" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M23 13L13 23" stroke="#143154" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M13 13L23 23" stroke="#143154" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </Link>
         </div>
         <div className="catDetailContainer">
           <div className="nameAgeContainer">
-            <span className="name">{catName}</span>
-            <span className="age">{catAge} years old</span>
+            <span className="name">{cat.name}</span>
+            <span className="age">{cat.age} years old</span>
           </div>
           <div className="likeBtn">
-            <svg width="112" height="36" viewBox="0 0 112 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg onClick={() => dispatch(addLikeCat(cat))} width="112" height="36" viewBox="0 0 112 36" fill={likedCatArr.includes(cat) ? "#F46D5C" : "none"} xmlns="http://www.w3.org/2000/svg">
               <circle cx="18" cy="18" r="18" fill="white"/>
               <rect width="112" height="36" rx="18" fill="white"/>
               <path d="M41.3666 12.8417C40.941 12.4158 40.4356 12.078 39.8794 11.8476C39.3232 11.6171 38.727 11.4985 38.1249 11.4985C37.5229 11.4985 36.9267 11.6171 36.3705 11.8476C35.8143 12.078 35.3089 12.4158 34.8833 12.8417L33.9999 13.725L33.1166 12.8417C32.2569 11.9819 31.0908 11.4989 29.8749 11.4989C28.6591 11.4989 27.493 11.9819 26.6333 12.8417C25.7735 13.7014 25.2905 14.8675 25.2905 16.0833C25.2905 17.2992 25.7735 18.4653 26.6333 19.325L27.5166 20.2083L33.9999 26.6917L40.4833 20.2083L41.3666 19.325C41.7924 18.8994 42.1302 18.394 42.3607 17.8378C42.5912 17.2816 42.7098 16.6854 42.7098 16.0833C42.7098 15.4813 42.5912 14.8851 42.3607 14.3289C42.1302 13.7727 41.7924 13.2673 41.3666 12.8417V12.8417Z" stroke="#F46D5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -49,11 +68,11 @@ const Detail = () => {
         </div>
         <div className="catBioContainer">
           <div className="catBio">
-            <span>{catBio}</span>
+            <span>{cat.description}</span>
           </div>
         </div>
         <div className="ownerBioContainer">
-          <span className="ownerName">Owned By {ownerName}</span>
+          <span className="ownerName">Owned By {cat.owner.name}</span>
           <div className="ownerBio">
             <div className="bioCol1">
               <span>Phone</span>
@@ -61,9 +80,9 @@ const Detail = () => {
               <span>Location</span>
             </div>
             <div className="bioCol2">
-              <span className="altFont">{ownerPhone}</span>
-              <span className="altFont">{ownerEmail}</span>
-              <span className="altFont">{ownerAddress}</span>
+              <span className="altFont">{cat.owner.phone}</span>
+              <span className="altFont">{cat.owner.email}</span>
+              <span className="altFont">{cat.owner.address}</span>
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@ import Detail from "../page/detailPage/Detail";
 const AppRouter = () => (
   <Switch>
     <Route exact path="/" component={Feed} />
-    <Route path="/detail" component={Detail} />
+    <Route path="/detail/:catId" component={Detail} />
   </Switch>
 );
 
