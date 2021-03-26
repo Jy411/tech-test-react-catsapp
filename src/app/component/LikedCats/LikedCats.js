@@ -5,7 +5,7 @@ import "./LikedCats.css";
 import {useSelector} from "react-redux";
 import {CatGrid} from "../CatGrid/CatGrid";
 
-export const LikedCats = (props) => {
+export const LikedCats = () => {
   const likedCatArr = useSelector(state => state.feed.likedCats);
 
   return (

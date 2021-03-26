@@ -9,16 +9,16 @@ export const feedSlice = createSlice({
   },
   reducers: {
     addLikeCat: (state, action) => {
-      // console.log('addLikeCat')
-      // console.log(action.payload)
       state.likedCats.push(action.payload);
-      // console.log(current(state.likedCats))
     },
-    removeLikeCat: (state, action) =>{
-      // console.log('removeLikeCat')
-      // console.log(action.payload)
-      state.likedCats = state.likedCats.filter(cat => cat.id !== action.payload.id);
-      // console.log((state.likedCats))
+    removeLikeCat: (state, action) => {
+      const itemToRemoveIndex = state.likedCats.findIndex((item) => {
+        return item.id === action.payload.id;
+      });
+
+      if (itemToRemoveIndex !== -1) {
+        state.likedCats.splice(itemToRemoveIndex, 1);
+      }
     },
     storeCat: (state, action) => {
       state.catArr.push(action.payload);

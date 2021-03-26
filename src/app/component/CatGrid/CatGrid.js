@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import CatCard from "../CatCard/CatCard";
 import {Grid} from "@geist-ui/react";
 
 export const CatGrid = (props) => {
-  const [catData, setCatData] = useState(props.catData);
+  const catData = props.catData;
 
   return (
       <Grid xs={12} justify="space-evenly" alignItems="center">
