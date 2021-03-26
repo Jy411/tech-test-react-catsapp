@@ -11,7 +11,7 @@ import ScrollToTop from "./shared/ScrollToTop";
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Helmet>
         <title>Catsat</title>
         <meta property="og:title" content="Catsat" />
