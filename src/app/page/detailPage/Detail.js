@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-
 import "./detailStyle.css";
 import {Link, useParams} from "react-router-dom";
-import {addLikeCat} from "../../reduxSlice/feedSlice";
+import {addLikeCat, removeLikeCat} from "../../reduxSlice/feedSlice";
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -35,6 +34,13 @@ const Detail = () => {
     })
   }, [])
 
+  const addRemoveLikeCat = (cat) => {
+    if (likedCatArr.includes(cat))
+      dispatch(removeLikeCat(cat));
+    else
+      dispatch(addLikeCat(cat));
+  }
+
   return (
       <div className="container" style={{backgroundColor: cat.background_color}}>
         <div className="imageContainer">
@@ -58,7 +64,7 @@ const Detail = () => {
             <span className="age">{cat.age} years old</span>
           </div>
           <div className="likeBtn">
-            <svg onClick={() => dispatch(addLikeCat(cat))} width="112" height="36" viewBox="0 0 112 36" fill={likedCatArr.includes(cat) ? "#F46D5C" : "none"} xmlns="http://www.w3.org/2000/svg">
+            <svg onClick={() => addRemoveLikeCat(cat)} width="112" height="36" viewBox="0 0 112 36" fill={likedCatArr.includes(cat) ? "#F46D5C" : "none"} xmlns="http://www.w3.org/2000/svg">
               <circle cx="18" cy="18" r="18" fill="white"/>
               <rect width="112" height="36" rx="18" fill="white"/>
               <path d="M41.3666 12.8417C40.941 12.4158 40.4356 12.078 39.8794 11.8476C39.3232 11.6171 38.727 11.4985 38.1249 11.4985C37.5229 11.4985 36.9267 11.6171 36.3705 11.8476C35.8143 12.078 35.3089 12.4158 34.8833 12.8417L33.9999 13.725L33.1166 12.8417C32.2569 11.9819 31.0908 11.4989 29.8749 11.4989C28.6591 11.4989 27.493 11.9819 26.6333 12.8417C25.7735 13.7014 25.2905 14.8675 25.2905 16.0833C25.2905 17.2992 25.7735 18.4653 26.6333 19.325L27.5166 20.2083L33.9999 26.6917L40.4833 20.2083L41.3666 19.325C41.7924 18.8994 42.1302 18.394 42.3607 17.8378C42.5912 17.2816 42.7098 16.6854 42.7098 16.0833C42.7098 15.4813 42.5912 14.8851 42.3607 14.3289C42.1302 13.7727 41.7924 13.2673 41.3666 12.8417V12.8417Z" stroke="#F46D5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
