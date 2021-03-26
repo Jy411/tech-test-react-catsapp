@@ -3,26 +3,33 @@ import "./splashScreenStyle.css";
 import {useDispatch} from "react-redux";
 import {storeCat, updateSplash} from "../../reduxSlice/feedSlice";
 
+import "axios";
+
 const SplashScreen = () => {
   const dispatch = useDispatch();
+  const axios = require("axios");
 
   useEffect(() => {
-    // Fetch data
-    fetch("https://cdn.ivodigital.com/catsapp/felines.json")
-        .then(res => res.json())
-        // Add into redux store
-        .then((result) => {
-          result.data.map((item) => {
-            dispatch(storeCat(item));
+    // Get meow data
+    axios.get("https://cdn.ivodigital.com/catsapp/felines.json")
+        .then((response) => {
+          // handle success
+          let res = response.data.data;
+          res.map((cat) => {
+            dispatch(storeCat(cat));
           })
         })
-        .then(
-            setTimeout(() => {
-              dispatch(updateSplash(true))
-            }, 2000)
-        )
-      }, []
-  )
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        })
+        .then(() => {
+          // always executed
+          setTimeout(() => {
+            dispatch(updateSplash(true))
+          }, 2000)
+        })
+  }, [])
 
   return (
       <div className="splashContainer">
