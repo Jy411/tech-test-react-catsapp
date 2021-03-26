@@ -1,7 +1,7 @@
 {
   "name": "tech-test-react-catsapp",
   "version": "0.1.0",
-  "homepage": "http://jy411.github.io/tech-test-react-catsapp",
+  "homepage": "https://jy411.github.io/tech-test-react-catsapp",
   "private": true,
   "dependencies": {
     "@geist-ui/react": "^2.1.3",
