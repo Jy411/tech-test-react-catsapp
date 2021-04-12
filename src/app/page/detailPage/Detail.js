@@ -28,7 +28,6 @@ const Detail = () => {
   useEffect(() => {
     catArr.map((cat) => {
       if (cat.id === parseInt(catId)) {
-        console.log(cat);
         setCat(cat);
       }
     })
